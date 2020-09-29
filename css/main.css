@@ -1,2 +1,39 @@
-
 /*  Put your CSS Here */
+
+#board {
+  display: flex;
+}
+
+.token {
+  margin: 5px;
+  height: 20px;
+  width: 20px;
+}
+
+.col0 {
+  background: red;
+}
+
+.col1 {
+  background: blue;
+}
+
+.col2 {
+  background: purple;
+}
+
+.col3 {
+  background: greenyellow;
+}
+
+.col4 {
+  background: orange;
+}
+
+.col5 {
+  background: gray;
+}
+
+.col6 {
+  background: pink;
+}
