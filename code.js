@@ -175,7 +175,20 @@ function vertCheck(direction) {
 
   return count;
 }
-
+let count = 0;
+function gameOver() {
+  for (i = 0; i < boardArr.length; i++) {
+    count++;
+    boardArr.push(count);
+    if (boardArrCount === 42) {
+      // or (redPlayer [] === blackPlayer [])
+      return `game over`;
+    }
+    if (gameCheck(playerArr[playerArr.length - 1])) {
+      alert(selectedPlayer + " won");
+    }
+  }
+}
 /* 
 
 playerArr = [i, j, k]
