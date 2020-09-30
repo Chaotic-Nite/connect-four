@@ -1,42 +1,41 @@
-/*  Put your CSS Here */
-
-#board {
+:root {
+  box-sizing: border-box;
   display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 55px;
 }
-
+body {
+  background-color: rgb(250, 250, 250);
+  border: 5px solid black;
+}
+h1 {
+  margin-bottom: 45px;
+  font-family: "Amatic SC", cursive;
+  font-weight: lighter;
+}
+#board {
+  background-color: yellow;
+  border: 1px solid rgb(199, 164, 6);
+  display: flex;
+  width: 644px;
+}
 .token {
   margin: 5px;
   height: 20px;
   width: 20px;
+  border-radius: 100%;
+  border: 1px solid slategray;
 }
-.col:hover {
-  color: rgb(18, 252, 252);
+.columns {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  margin: 10px;
 }
-
-.col0 {
-  background: red;
+.columns:hover {
+  background-color: white;
 }
-
-.col1 {
-  background: blue;
-}
-
-.col2 {
-  background: purple;
-}
-
-.col3 {
-  background: greenyellow;
-}
-
-.col4 {
-  background: orange;
-}
-
-.col5 {
-  background: gray;
-}
-
-.col6 {
-  background: pink;
+div:hover {
+  background-color: rgb(128, 246, 246);
 }
