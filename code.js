@@ -47,17 +47,17 @@ function drawBoard() {
   boardArr = twoArray();
 
   for (let col = 0; col < boardArr.length; col++) {
-    let gameRow = document.createElement("div");
+    let gameCol = document.createElement("div");
+    gameCol.classList.add("columns");
     for (let row = 0; row < 6; row++) {
       let cell = document.createElement("div");
       cell.classList.add("token");
-      cell.classList.add("columns");
       cell.classList.add("col" + col);
       cell.setAttribute("id", col + "-" + row);
 
-      gameRow.append(cell);
+      gameCol.append(cell);
     }
-    gameDiv.append(gameRow);
+    gameDiv.append(gameCol);
   }
 }
 
@@ -107,6 +107,7 @@ function gameCheck(token) {
 
   if (count >= 4) {
     console.log(count);
+    gameOver();
   } else {
     return;
   }
@@ -188,43 +189,27 @@ playerArr => blackArr = []
 
 function clickHandler(event) {
   const selectedColumn = event.currentTarget;
+  console.log(selectedColumn);
   if (columnIsFull(selectedColumn)) {
     txt = "column full";
   } else {
     dropToken(selectedColumn);
   }
-  // if (winningCombination) {
-  //   txt = "&#128516";
-  // if ()
-  // }
   if (gameOver()) {
     alert("game over");
   } else {
     playerToggle();
     dropToken(selectedCol);
   }
-  if (winningCombination) {
-    txt = "&#128516";
-    // if ()
-  }
 }
 
 function initializer() {
-  drawBoard();
+  let col = document.getElementsByClassName("columns");
 
-  document.querySelector(".col0").addEventListener("click", clickHandler);
-
-  document.querySelector(".col1").addEventListener("click", clickHandler);
-
-  document.querySelector(".col2").addEventListener("click", clickHandler);
-
-  document.querySelector(".col3").addEventListener("click", clickHandler);
-
-  document.querySelector(".col4").addEventListener("click", clickHandler);
-
-  document.querySelector(".col5").addEventListener("click", clickHandler);
-
-  document.querySelector(".col6").addEventListener("click", clickHandler);
+  for (let i = 0; i < 7; i++) {
+    col[i].addEventListener("click", clickHandler);
+  }
 }
 
+drawBoard();
 initializer();
