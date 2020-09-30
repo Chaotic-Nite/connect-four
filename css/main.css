@@ -9,6 +9,9 @@
   height: 20px;
   width: 20px;
 }
+.col:hover {
+  color: rgb(18, 252, 252);
+}
 
 .col0 {
   background: red;

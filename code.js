@@ -95,17 +95,31 @@ redArr => playArr = [i, j, k]
 playerArr => blackArr = []
 
 */
+function gameOver() {}
 
 function clickHandler(event) {
-  let selectedCol = event.currentTarget;
-  if (columnIsFull(selectedCol)) {
+  const selectedColumn = event.currentTarget;
+  if (columnIsFull(selectedColumn)) {
     txt = "column full";
   } else {
+<<<<<<< HEAD
+    dropToken(selectedColumn);
+  }
+  // if (winningCombination) {
+  //   txt = "&#128516";
+  // if ()
+  // }
+  if (gameOver()) {
+    alert("game over");
+  } else {
+    playerToggle();
+=======
     dropDisk(selectedCol);
   }
   if (winningCombination) {
     txt = "&#128516";
     // if ()
+>>>>>>> 5eb7699b3fd3c51d34172640172dcc90d367c776
   }
 }
 
