@@ -21,21 +21,14 @@ h1 {
   width: 644px;
 }
 .token {
-  margin: 5px;
-  height: 20px;
-  width: 20px;
   border-radius: 100%;
   border: 1px solid slategray;
-}
-.columns {
   width: 70px;
   height: 70px;
   background-color: white;
   margin: 10px;
 }
+
 .columns:hover {
-  background-color: white;
-}
-div:hover {
   background-color: rgb(128, 246, 246);
 }
