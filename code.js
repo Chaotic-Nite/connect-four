@@ -74,22 +74,107 @@ function playerToggle() {
 }
 
 function gameCheck(token) {
+  let count = 1;
+
   let nums = token.split("-");
   let tokenArr = nums.map(Number);
 
   if (
-    document.getElementById(tokenArr[0] + 1 + "-" + tokenArr[1]).style
-      .background === selectedPlayer &&
-    tokenArr[0] + 1 < 7
+    (playerArr.includes(tokenArr[0] + 1 + "-" + tokenArr[1]) &&
+      tokenArr[0] + 1 < 7) ||
+    playerArr.includes(tokenArr[0] - 1 + "-" + tokenArr[1])
   ) {
-    horizonCheck(tokenArr);
+    count += horizonCheck(tokenArr);
+  } else if (
+    (playerArr.includes(tokenArr[0] + "-" + (tokenArr[1] + 1)) &&
+      tokenArr[1] + 1 < 6) ||
+    playerArr.includes(tokenArr[0] + "-" + (tokenArr[1] - 1))
+  ) {
+    count += vertCheck(tokenArr);
+  } else if (
+    (playerArr.includes(tokenArr[0] + 1 + "-" + (tokenArr[1] + 1)) &&
+      tokenArr[1] + 1 < 6) ||
+    playerArr.includes(tokenArr[0] - 1 + "-" + (tokenArr[1] - 1))
+  ) {
+    count += diaLeftCheck(tokenArr);
+  } else if (
+    (playerArr.includes(tokenArr[0] + 1 + "-" + (tokenArr[1] - 1)) &&
+      tokenArr[1] + 1 < 6) ||
+    playerArr.includes(tokenArr[0] - 1 + "-" + (tokenArr[1] + 1))
+  ) {
+    count += diaRightCheck(tokenArr);
+  }
+
+  if (count >= 4) {
+    console.log(count);
+  } else {
+    return;
   }
 }
 
-function diaLeftCheck(direction) {}
-function diaRightCheck(direction) {}
-function horizonCheck(direction) {}
-function vertCheck(direction) {}
+function diaLeftCheck(direction) {
+  let count = 0;
+  for (let i = 1; i <= 3; i++) {
+    if (playerArr.includes(direction[0] + i + "-" + (direction[1] + i))) {
+      count++;
+    }
+  }
+
+  for (let i = -1; i >= -3; i--) {
+    if (playerArr.includes(direction[0] + i + "-" + (direction[1] - i))) {
+      count++;
+    }
+  }
+  return count;
+}
+function diaRightCheck(direction) {
+  let count = 0;
+  for (let i = 1; i <= 3; i++) {
+    if (playerArr.includes(direction[0] + i + "-" + (direction[1] - i))) {
+      count++;
+    }
+  }
+
+  for (let i = -1; i >= -3; i--) {
+    if (playerArr.includes(direction[0] + i + "-" + (direction[1] - i))) {
+      count++;
+    }
+  }
+
+  return count;
+}
+function horizonCheck(direction) {
+  let count = 0;
+  for (let i = 1; i <= 3; i++) {
+    if (playerArr.includes(direction[0] + i + "-" + direction[1])) {
+      count++;
+    }
+  }
+
+  for (let i = -1; i >= -3; i--) {
+    if (playerArr.includes(direction[0] + i + "-" + direction[1])) {
+      count++;
+    }
+  }
+
+  return count;
+}
+function vertCheck(direction) {
+  let count = 0;
+  for (let i = 1; i <= 3; i++) {
+    if (playerArr.includes(direction[0] + "-" + (direction[1] + i))) {
+      count++;
+    }
+  }
+
+  for (let i = -1; i >= -3; i--) {
+    if (playerArr.includes(direction[0] + "-" + (direction[1] + i))) {
+      count++;
+    }
+  }
+
+  return count;
+}
 
 /* 
 
@@ -100,14 +185,12 @@ redArr => playArr = [i, j, k]
 playerArr => blackArr = []
 
 */
-function gameOver() {}
 
 function clickHandler(event) {
   const selectedColumn = event.currentTarget;
   if (columnIsFull(selectedColumn)) {
     txt = "column full";
   } else {
-<<<<<<< HEAD
     dropToken(selectedColumn);
   }
   // if (winningCombination) {
@@ -118,13 +201,11 @@ function clickHandler(event) {
     alert("game over");
   } else {
     playerToggle();
-=======
-    dropDisk(selectedCol);
+    dropToken(selectedCol);
   }
   if (winningCombination) {
     txt = "&#128516";
     // if ()
->>>>>>> 5eb7699b3fd3c51d34172640172dcc90d367c776
   }
 }
 
