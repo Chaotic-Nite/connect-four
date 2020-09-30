@@ -46,12 +46,14 @@ function drawBoard() {
 
   boardArr = twoArray();
 
-  for (let row = 0; row < boardArr.length; row++) {
+  for (let col = 0; col < boardArr.length; col++) {
     let gameRow = document.createElement("div");
-    for (let col = 0; col < 6; col++) {
+    for (let row = 0; row < 6; row++) {
       let cell = document.createElement("div");
       cell.classList.add("token");
-      cell.classList.add("col" + row);
+      cell.classList.add("columns");
+      cell.classList.add("col" + col);
+      cell.setAttribute("id", col + "-" + row);
 
       gameRow.append(cell);
     }
@@ -71,6 +73,19 @@ function playerToggle() {
   }
 }
 
+function gameCheck(token) {
+  let currentCell = document.getElementById(token);
+  let nums = token.split("-");
+  let tokenArr = nums.map(Number);
+  if (true) {
+  }
+}
+
+function diaLeftCheck(direction) {}
+function diaRightCheck(direction) {}
+function horizonCheck(direction) {}
+function vertCheck(direction) {}
+
 /* 
 
 playerArr = [i, j, k]
@@ -87,6 +102,7 @@ function clickHandler(event) {
   if (columnIsFull(selectedColumn)) {
     txt = "column full";
   } else {
+<<<<<<< HEAD
     dropToken(selectedColumn);
   }
   // if (winningCombination) {
@@ -97,6 +113,13 @@ function clickHandler(event) {
     alert("game over");
   } else {
     playerToggle();
+=======
+    dropDisk(selectedCol);
+  }
+  if (winningCombination) {
+    txt = "&#128516";
+    // if ()
+>>>>>>> 5eb7699b3fd3c51d34172640172dcc90d367c776
   }
 }
 
