@@ -74,10 +74,15 @@ function playerToggle() {
 }
 
 function gameCheck(token) {
-  let currentCell = document.getElementById(token);
   let nums = token.split("-");
   let tokenArr = nums.map(Number);
-  if (true) {
+
+  if (
+    document.getElementById(tokenArr[0] + 1 + "-" + tokenArr[1]).style
+      .background === selectedPlayer &&
+    tokenArr[0] + 1 < 7
+  ) {
+    horizonCheck(tokenArr);
   }
 }
 
