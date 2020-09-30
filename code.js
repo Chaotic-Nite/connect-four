@@ -81,7 +81,17 @@ playerArr => blackArr = []
 
 */
 
-function clickHandler(event) {}
+function clickHandler(event) {
+  let selectedCol = event.currentTarget;
+  if (columnIsFull(selectedCol)) {
+    txt = "column full";
+  } else {dropDisk(selectedCol)
+  } if (winningCombination) {
+      txt = "&#128516"
+      // if ()
+  
+
+}
 
 function initializer() {
   drawBoard();
