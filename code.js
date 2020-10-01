@@ -176,6 +176,41 @@ function vertCheck(direction) {
 
   return count;
 }
+let count = 0;
+function gameOver() {
+  for (i = 0; i < boardArr.length; i++) {
+    count++;
+    boardArr.push(count);
+    if (boardArrCount === 42) {
+      // or (redPlayer [] === blackPlayer [])
+      return `game over`;
+    }
+    if (gameCheck(playerArr[playerArr.length - 1])) {
+      alert(selectedPlayer + " won");
+    }
+  }
+}
+
+function gameOver(currentPlayer) {
+  gameIsActive = false;
+  document.getElementById("output").innerHTML = currentPlayer + " won";
+}
+const dropToken = function () {
+  for (row = 5; row >= 0; row--) {
+    if ((gameDiv[row][col] = 0));
+    {
+      gameDiv[row][col] = selectedPlayer;
+      drawBoard();
+      if (selectedPlayer == 1) {
+        selectedPlayer == 2;
+      } else {
+        selectedPlayer == 1;
+      }
+      playerToggle();
+      return true;
+    }
+  }
+};
 
 /* 
 
@@ -191,12 +226,12 @@ function clickHandler(event) {
   const selectedColumn = event.currentTarget;
   console.log(selectedColumn);
   if (columnIsFull(selectedColumn)) {
-    txt = "column full";
+    document.getElementById("output").innerHTML = "Game Over!";
   } else {
     dropToken(selectedColumn);
   }
   if (gameOver()) {
-    alert("game over");
+    document.getElementById("output").innerHTML = "Game Over!";
   } else {
     playerToggle();
     dropToken(selectedCol);
