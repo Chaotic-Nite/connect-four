@@ -74,11 +74,11 @@ function playerToggle() {
 }
 
 function gameCheck(token) {
-  let count = 1;
+  let count = 1; // Be the new token
 
-  let nums = token.split("-");
+  let nums = token.split("-"); // Pos on Grid
   let tokenArr = nums.map(Number);
-
+  // PlayerArr upon the DropToken V
   if (
     (playerArr.includes(tokenArr[0] + 1 + "-" + tokenArr[1]) &&
       tokenArr[0] + 1 < 7) ||
@@ -106,10 +106,9 @@ function gameCheck(token) {
   }
 
   if (count >= 4) {
-    console.log(count);
-    gameOver();
+    return true;
   } else {
-    return;
+    return false;
   }
 }
 
