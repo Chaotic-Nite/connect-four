@@ -32,6 +32,8 @@ let redPlayer = [],
   playerArr = [],
   boardArr = [];
 
+let count = 0;
+
 function twoArray() {
   let arr = new Array(7);
   for (let i = 0; i < 7; i++) {
@@ -59,6 +61,7 @@ function drawBoard() {
     }
     gameDiv.append(gameCol);
   }
+  resetGame();
 }
 
 function playerToggle() {
@@ -74,42 +77,67 @@ function playerToggle() {
 }
 
 function gameCheck(token) {
-  let count = 1;
+  let count = 1; // Be the new token
 
-  let nums = token.split("-");
+  let nums = token.split("-"); // Pos on Grid
   let tokenArr = nums.map(Number);
-
+  // PlayerArr upon the DropToken V
   if (
     (playerArr.includes(tokenArr[0] + 1 + "-" + tokenArr[1]) &&
       tokenArr[0] + 1 < 7) ||
     playerArr.includes(tokenArr[0] - 1 + "-" + tokenArr[1])
   ) {
-    count += horizonCheck(tokenArr);
-  } else if (
+    let fCount = 0;
+    fCount += horizonCheck(tokenArr);
+    if (fCount < 3) {
+      fCount = 0;
+    }
+    count += fCount;
+  }
+
+  if (
     (playerArr.includes(tokenArr[0] + "-" + (tokenArr[1] + 1)) &&
       tokenArr[1] + 1 < 6) ||
     playerArr.includes(tokenArr[0] + "-" + (tokenArr[1] - 1))
   ) {
-    count += vertCheck(tokenArr);
-  } else if (
+    let fCount = 0;
+    fCount += vertCheck(tokenArr);
+    if (fCount < 3) {
+      fCount = 0;
+    }
+    count += fCount;
+  }
+
+  if (
     (playerArr.includes(tokenArr[0] + 1 + "-" + (tokenArr[1] + 1)) &&
       tokenArr[1] + 1 < 6) ||
     playerArr.includes(tokenArr[0] - 1 + "-" + (tokenArr[1] - 1))
   ) {
-    count += diaLeftCheck(tokenArr);
-  } else if (
+    let fCount = 0;
+    fCount += diaLeftCheck(tokenArr);
+    if (fCount < 3) {
+      fCount = 0;
+    }
+    count += fCount;
+  }
+
+  if (
     (playerArr.includes(tokenArr[0] + 1 + "-" + (tokenArr[1] - 1)) &&
       tokenArr[1] + 1 < 6) ||
     playerArr.includes(tokenArr[0] - 1 + "-" + (tokenArr[1] + 1))
   ) {
-    count += diaRightCheck(tokenArr);
+    let fCount = 0;
+    fCount += diaRightCheck(tokenArr);
+    if (fCount < 3) {
+      fCount = 0;
+    }
+    count += fCount;
   }
 
-  if (count >= 4) {
-    console.log(count);
-    gameOver();
+  if (count === 4) {
+    return true;
   } else {
-    return;
+    return false;
   }
 }
 
@@ -176,24 +204,18 @@ function vertCheck(direction) {
 
   return count;
 }
-let count = 0;
-function gameOver() {
-  for (i = 0; i < boardArr.length; i++) {
-    count++;
-    boardArr.push(count);
-    if (boardArrCount === 42) {
-      // or (redPlayer [] === blackPlayer [])
-      return `game over`;
-    }
-    if (gameCheck(playerArr[playerArr.length - 1])) {
-      alert(selectedPlayer + " won");
-    }
-  }
-}
 
-function gameOver(currentPlayer) {
-  gameIsActive = false;
-  document.getElementById("output").innerHTML = currentPlayer + " won";
+function gameOver() {
+  boardArr.push(count);
+  let result = "";
+  if (boardArrCount.length === 42) {
+    // or (redPlayer [] === blackPlayer [])
+    result = `Tie`;
+  }
+  if (gameCheck(playerArr[playerArr.length - 1])) {
+    result = selectedPlayer + " won";
+  }
+  document.getElementById("output").innerHTML;
 }
 
 function resetGame() {
@@ -208,23 +230,6 @@ function resetGame() {
   }
 }
 
-// const dropToken = function () {
-//   for (row = 5; row >= 0; row--) {
-//     if ((gameDiv[row][col] = 0));
-//     {
-//       gameDiv[row][col] = selectedPlayer;
-//       drawBoard();
-//       if (selectedPlayer == 1) {
-//         selectedPlayer == 2;
-//       } else {
-//         selectedPlayer == 1;
-//       }
-//       playerToggle();
-//       return true;
-//     }
-//   }
-// };
-
 /* 
 
 playerArr = [i, j, k]
@@ -236,18 +241,29 @@ playerArr => blackArr = []
 */
 
 function clickHandler(event) {
-  const selectedColumn = event.currentTarget;
-  console.log(selectedColumn);
-  if (columnIsFull(selectedColumn)) {
-    document.getElementById("output").innerHTML = "Game Over!";
-  } else {
-    dropToken(selectedColumn);
+  const tokenID = event.target.getAttribute("id");
+  if (!tokenID) {
+    return;
   }
-  if (gameOver()) {
-    document.getElementById("output").innerHTML = "Game Over!";
+  if (checkFull(tokenID[0])) {
+    return;
+  }
+  console.log(tokenID[0]);
+  playerToggle();
+}
+
+function checkFull(num) {
+  let fullCol = [];
+  let gameCol = document.getElementsByClassName("col" + num);
+  for (let i = 0; i < 6; i++) {
+    if (gameCol[i].style.backgroundColor != "white") {
+      fullCol.push(gameCol[i]);
+    }
+  }
+  if (fullCol.length === gameCol.length) {
+    return true;
   } else {
-    playerToggle();
-    dropToken(selectedCol);
+    return false;
   }
 }
 
@@ -261,3 +277,59 @@ function initializer() {
 
 drawBoard();
 initializer();
+
+// Unit Test
+
+function testGameCheck() {
+  playerArr = ["6-5", "6-3", "6-4", "6-2"];
+
+  let result = gameCheck(playerArr[playerArr.length - 1]);
+  console.assert(
+    result === true,
+    JSON.stringify({
+      function: "gameCheck(playerArr[playerArr.length-1])",
+      expected: true,
+      result: result,
+    })
+  );
+
+  playerArr = ["5-0", "4-0", "3-0", "2-1", "2-0"];
+
+  result = gameCheck(playerArr[playerArr.length - 1]);
+  console.assert(
+    result === true,
+    JSON.stringify({
+      function: "gameCheck(playerArr[playerArr.length-1])",
+      expected: true,
+      result: result,
+    })
+  );
+
+  playerArr = ["5-2", "3-3", "4-2", "5-1", "6-0"];
+
+  result = gameCheck(playerArr[playerArr.length - 1]);
+  console.assert(
+    result === true,
+    JSON.stringify({
+      function: "gameCheck(playerArr[playerArr.length-1])",
+      expected: true,
+      result: result,
+    })
+  );
+
+  playerArr = ["5-0", "4-3", "3-2", "2-1", "1-0"];
+
+  result = gameCheck(playerArr[playerArr.length - 1]);
+  console.assert(
+    result === true,
+    JSON.stringify({
+      function: "gameCheck(playerArr[playerArr.length-1])",
+      expected: true,
+      result: result,
+    })
+  );
+
+  playerArr = [];
+}
+
+testGameCheck();
