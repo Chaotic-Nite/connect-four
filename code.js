@@ -32,7 +32,7 @@ let redPlayer = [],
   playerArr = [],
   boardArr = [];
 
-let count = 0;
+let tokenCount = 0;
 
 function twoArray() {
   let arr = new Array(7);
@@ -206,17 +206,20 @@ function vertCheck(direction) {
 }
 
 function gameOver() {
-  boardArr.push(count);
   let result = "";
-  if (boardArrCount.length === 42) {
+  if (tokenCount === 42) {
     // or (redPlayer [] === blackPlayer [])
     result = `Tie`;
   }
   if (gameCheck(playerArr[playerArr.length - 1])) {
     result = selectedPlayer + " won";
+    let col = document.getElementsByClassName("columns");
+
+    for (let i = 0; i < 7; i++) {
+      col[i].style.pointerEvents = "none";
+    }
   }
-  document.getElementById("output").innerHTML = result
-  
+  document.getElementById("output").innerHTML = result;
 }
 
 function resetGame() {
@@ -232,50 +235,17 @@ function resetGame() {
 }
 
 /* 
-
 playerArr = [i, j, k]
 
 redArr => playArr = [i, j, k]
 
 playerArr => blackArr = []
-
-
-const clickHandler = function(event) {
-  const selectedColumn = event.currentTarget;
-  console.log(selectedColumn);
-  if (columnIsFull(selectedColumn)) {
-    document.getElementById("output").innerHTML = "Game Over!";
-  } else {
-    dropToken(selectedColumn);
-  }
-  if (gameOver()) {
-    document.getElementById("output").innerHTML = "Game Over!";
-  } else {
-    playerToggle();
-    dropToken(selectedCol);
-  }
-}
-const clickHandler = function(event) {
-  if (gameStatus == true) {
-      const selectedCol = event.currentTarget
-      dropToken(selectedCol, boardModel, currentPlayer)
-      const winner = isGameOver(boardModel)
-      if (winner !== null) {
-          winMessage(winner);
-          gameStatus = false;
-      } else if (gameIsATie(boardModel)) {
-          TieMessage();
-          gameStatus = false;
-      } else {
-          displayCurrentPlayer(currentPlayer);
-      }
-  }
-}
 */
+
 function dropToken(num) {
   flag = false;
   counter = 5;
- 
+
   let cell = document.getElementById(num + "-" + counter);
   while (!flag) {
     if (cell.style.backgroundColor === "white") {
@@ -285,10 +255,11 @@ function dropToken(num) {
       cell = document.getElementById(num + "-" + counter);
     }
   }
-  console.log(selectedPlayer)
-  playerArr.push(num + "-" + counter)
-  document.getElementById(num + "-" + counter).style.backgroundColor = selectedPlayer
-  count++
+  playerArr.push(num + "-" + counter);
+  document.getElementById(
+    num + "-" + counter
+  ).style.backgroundColor = selectedPlayer;
+  tokenCount++;
 }
 
 function clickHandler(event) {
@@ -299,8 +270,8 @@ function clickHandler(event) {
   if (checkFull(tokenID[0])) {
     return;
   }
-  dropToken(tokenID[0])
-  gameOver()
+  dropToken(tokenID[0]);
+  gameOver();
   playerToggle();
 }
 
@@ -308,7 +279,7 @@ function checkFull(num) {
   let fullCol = [];
   let gameCol = document.getElementsByClassName("col" + num);
   for (let i = 0; i < 6; i++) {
-    if (gameCol[i].style.backgroundColor != "white") {
+    if (gameCol[i].style.background != "white") {
       fullCol.push(gameCol[i]);
     }
   }
