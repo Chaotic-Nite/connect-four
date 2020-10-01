@@ -195,22 +195,35 @@ function gameOver(currentPlayer) {
   gameIsActive = false;
   document.getElementById("output").innerHTML = currentPlayer + " won";
 }
-const dropToken = function () {
-  for (row = 5; row >= 0; row--) {
-    if ((gameDiv[row][col] = 0));
-    {
-      gameDiv[row][col] = selectedPlayer;
-      drawBoard();
-      if (selectedPlayer == 1) {
-        selectedPlayer == 2;
-      } else {
-        selectedPlayer == 1;
-      }
-      playerToggle();
-      return true;
-    }
+
+function resetGame() {
+  selectedPlayer = "red";
+
+  redPlayer = [];
+  blackPlayer = [];
+  playerArr = [];
+  let col = document.getElementsByClassName("token");
+  for (let i = 0; i < col.length; i++) {
+    col[i].style.background = "white";
   }
-};
+}
+
+// const dropToken = function () {
+//   for (row = 5; row >= 0; row--) {
+//     if ((gameDiv[row][col] = 0));
+//     {
+//       gameDiv[row][col] = selectedPlayer;
+//       drawBoard();
+//       if (selectedPlayer == 1) {
+//         selectedPlayer == 2;
+//       } else {
+//         selectedPlayer == 1;
+//       }
+//       playerToggle();
+//       return true;
+//     }
+//   }
+// };
 
 /* 
 
