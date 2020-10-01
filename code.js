@@ -231,6 +231,7 @@ function resetGame() {
   let col = document.getElementsByClassName("token");
   for (let i = 0; i < col.length; i++) {
     col[i].style.background = "white";
+    col[i].style.pointerEvents = "auto";
   }
 }
 

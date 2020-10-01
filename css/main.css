@@ -32,3 +32,9 @@ h1 {
 .columns:hover {
   background-color: rgb(128, 246, 246);
 }
+button {
+  background-color: rgb(59, 165, 214);
+  width: 100px;
+  height: 35px;
+  font-size: x-large;
+}
