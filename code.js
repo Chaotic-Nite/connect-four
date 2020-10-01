@@ -215,7 +215,8 @@ function gameOver() {
   if (gameCheck(playerArr[playerArr.length - 1])) {
     result = selectedPlayer + " won";
   }
-  document.getElementById("output").innerHTML;
+  document.getElementById("output").innerHTML = result
+  
 }
 
 function resetGame() {
@@ -238,7 +239,57 @@ redArr => playArr = [i, j, k]
 
 playerArr => blackArr = []
 
+
+const clickHandler = function(event) {
+  const selectedColumn = event.currentTarget;
+  console.log(selectedColumn);
+  if (columnIsFull(selectedColumn)) {
+    document.getElementById("output").innerHTML = "Game Over!";
+  } else {
+    dropToken(selectedColumn);
+  }
+  if (gameOver()) {
+    document.getElementById("output").innerHTML = "Game Over!";
+  } else {
+    playerToggle();
+    dropToken(selectedCol);
+  }
+}
+const clickHandler = function(event) {
+  if (gameStatus == true) {
+      const selectedCol = event.currentTarget
+      dropToken(selectedCol, boardModel, currentPlayer)
+      const winner = isGameOver(boardModel)
+      if (winner !== null) {
+          winMessage(winner);
+          gameStatus = false;
+      } else if (gameIsATie(boardModel)) {
+          TieMessage();
+          gameStatus = false;
+      } else {
+          displayCurrentPlayer(currentPlayer);
+      }
+  }
+}
 */
+function dropToken(num) {
+  flag = false;
+  counter = 5;
+ 
+  let cell = document.getElementById(num + "-" + counter);
+  while (!flag) {
+    if (cell.style.backgroundColor === "white") {
+      flag = true;
+    } else {
+      counter--;
+      cell = document.getElementById(num + "-" + counter);
+    }
+  }
+  console.log(selectedPlayer)
+  playerArr.push(num + "-" + counter)
+  document.getElementById(num + "-" + counter).style.backgroundColor = selectedPlayer
+  count++
+}
 
 function clickHandler(event) {
   const tokenID = event.target.getAttribute("id");
@@ -248,7 +299,8 @@ function clickHandler(event) {
   if (checkFull(tokenID[0])) {
     return;
   }
-  console.log(tokenID[0]);
+  dropToken(tokenID[0])
+  gameOver()
   playerToggle();
 }
 
