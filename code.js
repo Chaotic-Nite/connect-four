@@ -239,6 +239,38 @@ redArr => playArr = [i, j, k]
 playerArr => blackArr = []
 
 */
+const clickHandler = function(event) {
+  const selectedColumn = event.currentTarget;
+  console.log(selectedColumn);
+  if (columnIsFull(selectedColumn)) {
+    document.getElementById("output").innerHTML = "Game Over!";
+  } else {
+    dropToken(selectedColumn);
+  }
+  if (gameOver()) {
+    document.getElementById("output").innerHTML = "Game Over!";
+  } else {
+    playerToggle();
+    dropToken(selectedCol);
+  }
+}
+/*const clickHandler = function(event) {
+  if (gameStatus == true) {
+      const selectedCol = event.currentTarget
+      dropToken(selectedCol, boardModel, currentPlayer)
+      const winner = isGameOver(boardModel)
+      if (winner !== null) {
+          winMessage(winner);
+          gameStatus = false;
+      } else if (gameIsATie(boardModel)) {
+          TieMessage();
+          gameStatus = false;
+      } else {
+          displayCurrentPlayer(currentPlayer);
+      }
+  }
+}
+
 
 function clickHandler(event) {
   const tokenID = event.target.getAttribute("id");
@@ -266,6 +298,7 @@ function checkFull(num) {
     return false;
   }
 }
+*/
 
 function initializer() {
   let col = document.getElementsByClassName("columns");
